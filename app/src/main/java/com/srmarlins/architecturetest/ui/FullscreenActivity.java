@@ -55,11 +55,11 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
     public void displayPhoto(Photo photo) {
-        if (displayFull(photo)) {
+       /* if (displayFull(photo)) {
             Picasso.with(this).load(photo.urls.full).fit().placeholder(R.drawable.animation_spinner).into(feedImage);
         } else {
             Picasso.with(this).load(photo.urls.regular).placeholder(R.drawable.animation_spinner).into(feedImage);
-        }
+        }*/
     }
 
     public boolean displayFull(Photo photo) {

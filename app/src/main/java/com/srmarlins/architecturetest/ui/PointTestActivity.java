@@ -23,6 +23,7 @@ public class PointTestActivity extends BaseActivity {
     PlotLayout plotLayout;
 
     private PlotAnimator plotAnimator;
+    private boolean initialized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +33,20 @@ public class PointTestActivity extends BaseActivity {
         plotLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                init();
+                if(!initialized) {
+                    init();
+                }
             }
         });
     }
 
     public void init() {
+        initialized = true;
         plotAnimator = new PlotAnimator(plotLayout);
         PointPath pointList = new PointPath();
-        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.ARC, 0, 0, 300, 0, 10, 100, 90, 85));
-        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.ARC, 5, 30, 300, 0, 10, 120, 90, 40));
-        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.ARC, 20, 20, 300, 0, 10, 90, 50, 55));
-        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.ARC, 20, 50, 300, 0, 10, 10, 20, 35));
-        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.ARC, plotLayout.sizeOfX() - 2, plotLayout.sizeOfY() - 2, 300, 0, 10, 10, 20, 35));
+        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.CUBIC, 0, 0, 1000, 0, 10, 270, -180, -1000));
+        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.CUBIC, 30, 30, 1000, 0, 10, 180, 90, 40));
+        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.CUBIC, plotLayout.sizeOfX() - 2, plotLayout.sizeOfY() - 2, 300, 0, 10, 10, 20, 35));
 
         pointList.setPathTag(getString(R.string.simple_single_animation_tag));
         GraphAnimation graphAnimation = new GraphAnimation();

@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.shapes.Shape;
 import android.text.TextUtils;
@@ -30,7 +31,6 @@ public class PlotAnimator {
         ARC,
         QUAD,
         LINE,
-        CIRCLE,
         CUBIC,
     }
 
@@ -88,9 +88,6 @@ public class PlotAnimator {
                 case QUAD:
                     addQuadPath(path, pointPath, i);
                     break;
-                case CIRCLE:
-                    addCirclePath(path, pointPath, i);
-                    break;
                 case CUBIC:
                     addCubicPath(path, pointPath, i);
                     break;
@@ -115,16 +112,15 @@ public class PlotAnimator {
         }
         Point current = pointPath.getPoints().get(index);
         Point next = pointPath.getPoints().get(index + 1);
-        float radius = current.getRadius();
-        RectF oval = ViewUtil.getVisibleViewRectF(view);
 
-        float left = current.getxCoordinate() > next.getxCoordinate() ? next.getxCoordinate() : current.getxCoordinate();
-        float top = current.getyCoordinate() > next.getyCoordinate() ? next.getyCoordinate() : current.getyCoordinate();
-        float right = current.getxCoordinate() > next.getxCoordinate() ? current.getxCoordinate() : next.getxCoordinate();
-        float bottom = current.getyCoordinate() > next.getyCoordinate() ? current.getyCoordinate() : next.getyCoordinate();
-        oval.set(current.getxCoordinate() - radius, current.getyCoordinate() - radius, current.getxCoordinate() + radius, current.getyCoordinate() + radius);
-        int startAngle = (int) current.getStartAngle();//(int) (180 / Math.PI * Math.atan2(current.getyCoordinate() - next.getyCoordinate(), current.getxCoordinate() - next.getxCoordinate()));
-        path.arcTo(oval, startAngle, current.getSweepAngle(), false);
+        RectF oval = ViewUtil.getVisibleViewRectF(view);
+        oval.set(plotLayout.coordToPx(current.getxCoordinate()),
+                plotLayout.coordToPx(current.getyCoordinate()),
+                plotLayout.coordToPx(next.getxCoordinate()),
+                plotLayout.coordToPx(next.getyCoordinate()));
+
+        int startAngle = (int) current.getStartAngle();
+        path.arcTo(oval, startAngle, current.getSweepAngle());
     }
 
     private void addQuadPath(Path path, PointPath pointPath, int index) {
@@ -145,21 +141,29 @@ public class PlotAnimator {
                 plotLayout.coordToPx(next.getyCoordinate()));
     }
 
-    private void addCirclePath(Path path, PointPath pointPath, int index) {
-
-    }
-
     private void addCubicPath(Path path, PointPath pointPath, int index) {
         if (index >= pointPath.getPoints().size() - 1) {
             return;
         }
         Point current = pointPath.getPoints().get(index);
-        Point next = pointPath.getPoints().get(index);
-        path.cubicTo(0, 0,
-                plotLayout.coordToPx(current.getxCoordinate()),
+        Point next = pointPath.getPoints().get(index + 1);
+
+        int top = plotLayout.coordToPx(current.getxCoordinate() > next.getxCoordinate() ? next.getxCoordinate() : current.getxCoordinate());
+        int left = plotLayout.coordToPx(current.getyCoordinate() > next.getyCoordinate() ? next.getyCoordinate() : current.getyCoordinate());
+        int right = plotLayout.coordToPx(current.getxCoordinate() > next.getxCoordinate() ? current.getxCoordinate() : next.getxCoordinate());
+        int bottom = plotLayout.coordToPx(current.getyCoordinate() > next.getyCoordinate() ? current.getyCoordinate() : next.getyCoordinate());
+
+        Rect rect = new Rect(left, top, right, bottom);
+        int mX = current.getSweepAngle() >= 0 ? rect.right : rect.left;
+        int mY = current.getSweepAngle() >= 0 ? rect.top : rect.bottom;
+
+        path.cubicTo(plotLayout.coordToPx(current.getxCoordinate()),
                 plotLayout.coordToPx(current.getyCoordinate()),
+                mX,
+                mY,
                 plotLayout.coordToPx(next.getxCoordinate()),
-                plotLayout.coordToPx(next.getyCoordinate()));
+                plotLayout.coordToPx(next.getyCoordinate())
+                );
     }
 
     public void setAnimation(GraphAnimation animation) {

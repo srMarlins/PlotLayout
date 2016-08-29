@@ -14,8 +14,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@android:drawable/ic_delete"
-            app:layout_positionX="10"
-            app:layout_positionY="10"
+            app:layout_positionX="0"
+            app:layout_positionY="0"
             app:animation_pathTag="@string/simple_single_animation_tag"/>
 
     </com.srmarlins.architecturetest.ui.widget.PlotLayout>
