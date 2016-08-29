@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Architecture test</string>
+    <string name="simple_single_animation_tag">simple_single_animation_tag</string>
+</resources>
