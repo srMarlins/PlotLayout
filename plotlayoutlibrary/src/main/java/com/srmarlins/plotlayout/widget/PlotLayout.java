@@ -1,4 +1,4 @@
-package com.srmarlins.architecturetest.ui.widget;
+package com.srmarlins.plotlayout.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,8 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.srmarlins.architecturetest.R;
-import com.srmarlins.architecturetest.ui.model.Point;
+import com.srmarlins.plotlayout.R;
+import com.srmarlins.plotlayout.model.Point;
 
 /**
  * Created by JaredFowler on 8/18/2016.
@@ -34,10 +34,6 @@ public class PlotLayout extends ViewGroup {
 
     public PlotLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    public PlotLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override

@@ -43,4 +43,5 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:cardview-v7:24.1.1'
+    compile project(path: ':plotlayoutlibrary')
 }

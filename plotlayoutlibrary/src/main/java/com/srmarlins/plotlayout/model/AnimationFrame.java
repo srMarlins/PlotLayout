@@ -1,4 +1,4 @@
-package com.srmarlins.architecturetest.ui.model;
+package com.srmarlins.plotlayout.model;
 
 import java.util.HashMap;
 

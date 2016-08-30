@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PlotLayoutParams">
+        <attr name="layout_positionX" format="integer"/>
+        <attr name="layout_positionY" format="integer"/>
+        <attr name="animation_pathTag" format="string"/>
+    </declare-styleable>
+</resources>

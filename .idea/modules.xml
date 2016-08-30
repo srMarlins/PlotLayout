@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Architecturetest.iml" filepath="$PROJECT_DIR$/Architecturetest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlotLayout.iml" filepath="$PROJECT_DIR$/PlotLayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plotlayoutlibrary/plotlayoutlibrary.iml" filepath="$PROJECT_DIR$/plotlayoutlibrary/plotlayoutlibrary.iml" />
     </modules>
   </component>
 </project>

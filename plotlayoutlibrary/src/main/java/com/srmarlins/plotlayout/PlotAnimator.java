@@ -1,4 +1,4 @@
-package com.srmarlins.architecturetest.ui.widget;
+package com.srmarlins.plotlayout;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -11,10 +11,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Interpolator;
 
-import com.srmarlins.architecturetest.ui.model.GraphAnimation;
-import com.srmarlins.architecturetest.ui.model.Point;
-import com.srmarlins.architecturetest.ui.model.PointPath;
-import com.srmarlins.architecturetest.util.ViewUtil;
+import com.srmarlins.plotlayout.model.GraphAnimation;
+import com.srmarlins.plotlayout.model.Point;
+import com.srmarlins.plotlayout.model.PointPath;
+import com.srmarlins.plotlayout.util.ViewUtil;
+import com.srmarlins.plotlayout.widget.PlotLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;

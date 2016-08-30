@@ -1,20 +1,15 @@
 package com.srmarlins.architecturetest.ui;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.util.AttributeSet;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 
 import com.srmarlins.architecturetest.R;
-import com.srmarlins.architecturetest.ui.model.BitmapPointFactory;
-import com.srmarlins.architecturetest.ui.model.GraphAnimation;
-import com.srmarlins.architecturetest.ui.model.PointPath;
-import com.srmarlins.architecturetest.ui.widget.PlotAnimator;
-import com.srmarlins.architecturetest.ui.widget.PlotLayout;
+import com.srmarlins.plotlayout.PlotAnimator;
+import com.srmarlins.plotlayout.model.BitmapPointFactory;
+import com.srmarlins.plotlayout.model.GraphAnimation;
+import com.srmarlins.plotlayout.model.PointPath;
+import com.srmarlins.plotlayout.widget.PlotLayout;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +34,7 @@ public class PointTestActivity extends BaseActivity {
         plotLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if(!initialized) {
+                if (!initialized) {
                     init();
                 }
             }

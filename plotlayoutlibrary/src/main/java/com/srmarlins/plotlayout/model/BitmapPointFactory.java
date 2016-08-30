@@ -1,6 +1,7 @@
-package com.srmarlins.architecturetest.ui.model;
+package com.srmarlins.plotlayout.model;
 
-import com.srmarlins.architecturetest.ui.widget.PlotAnimator;
+
+import com.srmarlins.plotlayout.PlotAnimator;
 
 /**
  * Created by JaredFowler on 8/18/2016.

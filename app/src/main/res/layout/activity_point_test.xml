@@ -5,11 +5,11 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.srmarlins.architecturetest.ui.widget.PlotLayout
+    <com.srmarlins.plotlayout.widget.PlotLayout
         android:id="@+id/graphView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.srmarlins.architecturetest.ui.widget.PlotLayout>
+    </com.srmarlins.plotlayout.widget.PlotLayout>
 
 </LinearLayout>

@@ -1,9 +1,9 @@
-package com.srmarlins.architecturetest.ui.model;
+package com.srmarlins.plotlayout.model;
 
 import android.graphics.Matrix;
 import android.support.annotation.NonNull;
 
-import com.srmarlins.architecturetest.ui.widget.PlotAnimator;
+import com.srmarlins.plotlayout.PlotAnimator;
 
 
 /**
