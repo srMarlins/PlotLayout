@@ -1,4 +1,4 @@
-package com.srmarlins.plotlayout;
+package com.srmarlins.plotlayout.animation;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Interpolator;
 
-import com.srmarlins.plotlayout.model.GraphAnimation;
 import com.srmarlins.plotlayout.model.Point;
 import com.srmarlins.plotlayout.model.PointPath;
 import com.srmarlins.plotlayout.util.ViewUtil;

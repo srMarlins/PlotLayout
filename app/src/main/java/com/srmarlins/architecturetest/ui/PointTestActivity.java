@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.view.ViewTreeObserver;
 
 import com.srmarlins.architecturetest.R;
-import com.srmarlins.plotlayout.PlotAnimator;
-import com.srmarlins.plotlayout.model.BitmapPointFactory;
-import com.srmarlins.plotlayout.model.GraphAnimation;
+import com.srmarlins.plotlayout.animation.PlotAnimator;
+import com.srmarlins.plotlayout.util.BitmapPointFactory;
+import com.srmarlins.plotlayout.animation.GraphAnimation;
 import com.srmarlins.plotlayout.model.PointPath;
 import com.srmarlins.plotlayout.widget.PlotLayout;
 

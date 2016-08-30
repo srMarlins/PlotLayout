@@ -1,7 +1,8 @@
-package com.srmarlins.plotlayout.model;
+package com.srmarlins.plotlayout.util;
 
 
-import com.srmarlins.plotlayout.PlotAnimator;
+import com.srmarlins.plotlayout.animation.PlotAnimator;
+import com.srmarlins.plotlayout.model.Point;
 
 /**
  * Created by JaredFowler on 8/18/2016.
