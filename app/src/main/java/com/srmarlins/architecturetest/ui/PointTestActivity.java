@@ -1,7 +1,10 @@
 package com.srmarlins.architecturetest.ui;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.AttributeSet;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 
 import com.srmarlins.architecturetest.R;
 import com.srmarlins.architecturetest.ui.model.BitmapPointFactory;
@@ -9,6 +12,9 @@ import com.srmarlins.architecturetest.ui.model.GraphAnimation;
 import com.srmarlins.architecturetest.ui.model.PointPath;
 import com.srmarlins.architecturetest.ui.widget.PlotAnimator;
 import com.srmarlins.architecturetest.ui.widget.PlotLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

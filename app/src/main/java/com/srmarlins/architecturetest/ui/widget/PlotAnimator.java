@@ -7,7 +7,6 @@ import android.animation.ValueAnimator;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.drawable.shapes.Shape;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -163,7 +162,7 @@ public class PlotAnimator {
                 mY,
                 plotLayout.coordToPx(next.getxCoordinate()),
                 plotLayout.coordToPx(next.getyCoordinate())
-                );
+        );
     }
 
     public void setAnimation(GraphAnimation animation) {
