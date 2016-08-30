@@ -1,4 +1,4 @@
-package com.srmarlins.architecturetest.ui;
+package com.srmarlins.architecturetest.feed.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
 import com.srmarlins.architecturetest.R;
-import com.srmarlins.architecturetest.data.api.model.Photo;
+import com.srmarlins.architecturetest.feed.data.api.model.Photo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

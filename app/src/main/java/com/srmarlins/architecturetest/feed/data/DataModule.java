@@ -1,9 +1,9 @@
-package com.srmarlins.architecturetest.data;
+package com.srmarlins.architecturetest.feed.data;
 
 import android.app.Application;
 import android.content.SharedPreferences;
 
-import com.srmarlins.architecturetest.data.api.ApiModule;
+import com.srmarlins.architecturetest.feed.data.api.ApiModule;
 
 import javax.inject.Singleton;
 

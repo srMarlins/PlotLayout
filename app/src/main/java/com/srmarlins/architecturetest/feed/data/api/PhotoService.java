@@ -1,9 +1,8 @@
-package com.srmarlins.architecturetest.data.api;
+package com.srmarlins.architecturetest.feed.data.api;
 
 import android.support.annotation.StringDef;
 
-import com.srmarlins.architecturetest.data.api.model.Photo;
-import com.srmarlins.architecturetest.data.api.model.PhotosResponse;
+import com.srmarlins.architecturetest.feed.data.api.model.Photo;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

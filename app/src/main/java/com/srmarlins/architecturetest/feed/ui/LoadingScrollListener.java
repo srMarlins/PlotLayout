@@ -1,9 +1,9 @@
-package com.srmarlins.architecturetest.ui;
+package com.srmarlins.architecturetest.feed.ui;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.srmarlins.architecturetest.data.PhotoManager;
+import com.srmarlins.architecturetest.feed.data.PhotoManager;
 
 /**
  * Created by JaredFowler on 8/15/2016.

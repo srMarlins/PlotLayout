@@ -1,7 +1,6 @@
-package com.srmarlins.architecturetest.data.api;
+package com.srmarlins.architecturetest.feed.data.api;
 
 import android.app.Application;
-import android.support.v4.content.ContextCompat;
 
 import com.squareup.moshi.Moshi;
 

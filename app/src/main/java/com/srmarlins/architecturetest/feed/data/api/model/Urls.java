@@ -1,4 +1,4 @@
-package com.srmarlins.architecturetest.data.api.model;
+package com.srmarlins.architecturetest.feed.data.api.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

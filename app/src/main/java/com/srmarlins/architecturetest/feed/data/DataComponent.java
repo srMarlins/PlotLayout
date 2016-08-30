@@ -1,7 +1,7 @@
-package com.srmarlins.architecturetest.data;
+package com.srmarlins.architecturetest.feed.data;
 
-import com.srmarlins.architecturetest.data.api.ApiModule;
-import com.srmarlins.architecturetest.ui.FeedActivity;
+import com.srmarlins.architecturetest.feed.data.api.ApiModule;
+import com.srmarlins.architecturetest.feed.ui.FeedActivity;
 
 import javax.inject.Singleton;
 

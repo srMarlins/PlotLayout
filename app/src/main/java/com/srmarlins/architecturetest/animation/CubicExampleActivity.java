@@ -1,10 +1,11 @@
-package com.srmarlins.architecturetest.ui;
+package com.srmarlins.architecturetest.animation;
 
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.srmarlins.architecturetest.R;
+import com.srmarlins.architecturetest.feed.ui.BaseActivity;
 import com.srmarlins.plotlayout.animation.PlotAnimator;
 import com.srmarlins.plotlayout.util.PointFactory;
 import com.srmarlins.plotlayout.animation.GraphAnimation;
@@ -19,13 +20,10 @@ import butterknife.ButterKnife;
  * Created by JaredFowler on 8/18/2016.
  */
 
-public class PointTestActivity extends BaseActivity {
+public class CubicExampleActivity extends BaseActivity {
 
     @BindView(R.id.graphView)
     PlotLayout plotLayout;
-
-    @BindView(R.id.circle)
-    ImageView circleView;
 
     private PlotAnimator plotAnimator;
     private boolean initialized = false;

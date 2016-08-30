@@ -3,11 +3,11 @@ package com.srmarlins.architecturetest;
 import android.app.Application;
 import android.content.Context;
 
-import com.srmarlins.architecturetest.data.AppModule;
-import com.srmarlins.architecturetest.data.DaggerDataComponent;
-import com.srmarlins.architecturetest.data.DataComponent;
-import com.srmarlins.architecturetest.data.DataModule;
-import com.srmarlins.architecturetest.data.api.ApiModule;
+import com.srmarlins.architecturetest.feed.data.AppModule;
+import com.srmarlins.architecturetest.feed.data.DaggerDataComponent;
+import com.srmarlins.architecturetest.feed.data.DataComponent;
+import com.srmarlins.architecturetest.feed.data.DataModule;
+import com.srmarlins.architecturetest.feed.data.api.ApiModule;
 
 /**
  * Created by JaredFowler on 8/11/2016.

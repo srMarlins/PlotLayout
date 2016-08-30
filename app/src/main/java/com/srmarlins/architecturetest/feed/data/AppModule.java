@@ -1,4 +1,4 @@
-package com.srmarlins.architecturetest.data;
+package com.srmarlins.architecturetest.feed.data;
 
 import android.app.Application;
 

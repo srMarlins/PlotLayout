@@ -1,23 +1,18 @@
-package com.srmarlins.architecturetest.ui;
+package com.srmarlins.architecturetest.feed.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.squareup.picasso.Picasso;
 import com.srmarlins.architecturetest.ArchitectureApp;
 import com.srmarlins.architecturetest.R;
-import com.srmarlins.architecturetest.data.PhotoManager;
-import com.srmarlins.architecturetest.data.api.model.Photo;
-import com.srmarlins.architecturetest.ui.adapter.FeedAdapter;
+import com.srmarlins.architecturetest.feed.data.PhotoManager;
+import com.srmarlins.architecturetest.feed.data.api.model.Photo;
+import com.srmarlins.architecturetest.feed.ui.adapter.FeedAdapter;
 
 import java.util.List;
 

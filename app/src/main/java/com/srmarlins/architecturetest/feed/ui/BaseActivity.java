@@ -1,4 +1,4 @@
-package com.srmarlins.architecturetest.ui;
+package com.srmarlins.architecturetest.feed.ui;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.srmarlins.architecturetest.R;
