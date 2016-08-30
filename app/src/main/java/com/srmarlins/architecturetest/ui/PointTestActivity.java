@@ -5,7 +5,7 @@ import android.view.ViewTreeObserver;
 
 import com.srmarlins.architecturetest.R;
 import com.srmarlins.plotlayout.animation.PlotAnimator;
-import com.srmarlins.plotlayout.util.BitmapPointFactory;
+import com.srmarlins.plotlayout.util.PointFactory;
 import com.srmarlins.plotlayout.animation.GraphAnimation;
 import com.srmarlins.plotlayout.model.PointPath;
 import com.srmarlins.plotlayout.widget.PlotLayout;
@@ -45,9 +45,9 @@ public class PointTestActivity extends BaseActivity {
         initialized = true;
         plotAnimator = new PlotAnimator(plotLayout);
         PointPath pointList = new PointPath();
-        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.CUBIC, 0, 0, 1000, 0, 10, 270, -180, -1000));
-        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.CUBIC, 30, 30, 1000, 0, 10, 180, 90, 40));
-        pointList.addPoint(BitmapPointFactory.getAnimateablePoint(PlotAnimator.PathType.CUBIC, plotLayout.sizeOfX() - 2, plotLayout.sizeOfY() - 2, 300, 0, 10, 10, 20, 35));
+        pointList.addPoint(PointFactory.getPoint(PlotAnimator.PathType.CUBIC, 0, 0, 1000, 0, 10, 270, -180, -1000));
+        pointList.addPoint(PointFactory.getPoint(PlotAnimator.PathType.CUBIC, 30, 30, 1000, 0, 10, 180, 90, 40));
+        pointList.addPoint(PointFactory.getPoint(PlotAnimator.PathType.CUBIC, plotLayout.sizeOfX() - 2, plotLayout.sizeOfY() - 2, 300, 0, 10, 10, 20, 35));
 
         pointList.setPathTag(getString(R.string.simple_single_animation_tag));
         GraphAnimation graphAnimation = new GraphAnimation();
