@@ -153,8 +153,8 @@ public class PlotAnimator {
         int bottom = plotLayout.coordToPx(current.getyCoordinate() > next.getyCoordinate() ? current.getyCoordinate() : next.getyCoordinate());
 
         Rect rect = new Rect(left, top, right, bottom);
-        int mX = current.getStartAngle() >= 0 ? rect.right : rect.left;
-        int mY = current.getStartAngle() >= 0 ? rect.top : rect.bottom;
+        int mX = current.getStartAngle() >= 270 || current.getStartAngle() <= 90 ? rect.right : rect.left;
+        int mY = current.getStartAngle() >= 180 ? rect.top : rect.bottom;
 
         path.cubicTo(plotLayout.coordToPx(current.getxCoordinate()),
                 plotLayout.coordToPx(current.getyCoordinate()),

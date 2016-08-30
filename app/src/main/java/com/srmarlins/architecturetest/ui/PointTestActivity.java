@@ -2,6 +2,7 @@ package com.srmarlins.architecturetest.ui;
 
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 
 import com.srmarlins.architecturetest.R;
 import com.srmarlins.plotlayout.animation.PlotAnimator;
@@ -22,6 +23,9 @@ public class PointTestActivity extends BaseActivity {
 
     @BindView(R.id.graphView)
     PlotLayout plotLayout;
+
+    @BindView(R.id.circle)
+    ImageView circleView;
 
     private PlotAnimator plotAnimator;
     private boolean initialized = false;
@@ -45,9 +49,9 @@ public class PointTestActivity extends BaseActivity {
         initialized = true;
         plotAnimator = new PlotAnimator(plotLayout);
         PointPath pointList = new PointPath();
-        pointList.addPoint(PointFactory.getPoint(PlotAnimator.PathType.CUBIC, 0, 0, 1000, 0, 10, 270, -180, -1000));
-        pointList.addPoint(PointFactory.getPoint(PlotAnimator.PathType.CUBIC, 30, 30, 1000, 0, 10, 180, 90, 40));
-        pointList.addPoint(PointFactory.getPoint(PlotAnimator.PathType.CUBIC, plotLayout.sizeOfX() - 2, plotLayout.sizeOfY() - 2, 300, 0, 10, 10, 20, 35));
+        pointList.addPoint(PointFactory.getCubicPoint(0, 0, 500, 120));
+        pointList.addPoint(PointFactory.getCubicPoint(30, 20, 500, 80));
+        pointList.addPoint(PointFactory.getCubicPoint(40, 0, 500, 90));
 
         pointList.setPathTag(getString(R.string.simple_single_animation_tag));
         GraphAnimation graphAnimation = new GraphAnimation();
