@@ -26,4 +26,8 @@ public class GraphAnimation {
         return animationMap.get(pathTag);
     }
 
+    public void setMap(HashMap<String, PointPath> map) {
+        this.animationMap = map;
+    }
+
 }
