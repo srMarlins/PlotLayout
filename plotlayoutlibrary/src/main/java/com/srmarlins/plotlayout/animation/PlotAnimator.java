@@ -146,7 +146,12 @@ public class PlotAnimator {
 
         float diffX = Math.abs(plotLayout.coordToPx(arc.getxCoordinate()) - centerX);
         float diffY = Math.abs(plotLayout.coordToPx(arc.getyCoordinate()) - centerY);
-        float radius = diffX > diffY ? diffX : diffY;
+        float radius;
+        if(diffX == diffY) {
+            radius = (float) Math.sqrt(diffX * diffX + diffY * diffY);
+        } else {
+            radius = diffX > diffY ? diffX : diffY;
+        }
 
         float left = centerX - radius - plotLayout.coordToPx(arc.getxCoordinate());
         float top = centerY - radius - plotLayout.coordToPx(arc.getyCoordinate());
@@ -159,8 +164,7 @@ public class PlotAnimator {
         sweepAngle = (float) Math.toDegrees(sweepAngle);
         startAngle = (startAngle % 360 + 360) % 360;
         sweepAngle = (sweepAngle % 360 + 360) % 360;
-        path.moveTo(0, 0);
-        path.arcTo(oval, startAngle, sweepAngle);
+        path.arcTo(oval, startAngle , sweepAngle);
     }
 
     private void addQuadPath(Path path, PointPath pointPath, int index) {
