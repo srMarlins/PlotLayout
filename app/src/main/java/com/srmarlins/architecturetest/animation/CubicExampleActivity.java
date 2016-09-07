@@ -1,6 +1,8 @@
 package com.srmarlins.architecturetest.animation;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
@@ -13,14 +15,21 @@ import com.srmarlins.plotlayout.model.PointPath;
 import com.srmarlins.plotlayout.widget.PlotLayout;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JaredFowler on 8/18/2016.
  */
 
 public class CubicExampleActivity extends BaseActivity {
+
+    public static final int SIDE = 3;
 
     @BindView(R.id.graphView)
     PlotLayout plotLayout;
@@ -46,15 +55,36 @@ public class CubicExampleActivity extends BaseActivity {
     public void init() {
         initialized = true;
         plotAnimator = new PlotAnimator(plotLayout);
-        PointPath pointList = new PointPath();
-        pointList.addPoint(PointFactory.getCubicPoint(0, 0, 500, 120));
-        pointList.addPoint(PointFactory.getCubicPoint(30, 20, 500, 80));
-        pointList.addPoint(PointFactory.getCubicPoint(40, 0, 500, 90));
-
-        pointList.setPathTag(getString(R.string.simple_single_animation_tag));
+        HashMap<String, View> viewMap = new HashMap<>();
+        for(int i = 0; i < SIDE * SIDE; i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.circle));
+            plotLayout.addView(imageView);
+            PlotLayout.LayoutParams layoutParams = (PlotLayout.LayoutParams) imageView.getLayoutParams();
+            layoutParams.pathTag = String.valueOf(i);
+            layoutParams.width = 50;
+            layoutParams.height = 50;
+            viewMap.put(layoutParams.pathTag, imageView);
+        }
+        RotatingSquare rotatingSquare = new RotatingSquare();
+        rotatingSquare.arrangeViews(new ArrayList<>(viewMap.values()), SIDE, 10);
         GraphAnimation graphAnimation = new GraphAnimation();
-        graphAnimation.addPath(pointList);
+        graphAnimation.setMap(rotatingSquare.getPaths(new ArrayList<>(viewMap.keySet()), SIDE, 10, true));
         plotAnimator.setAnimation(graphAnimation);
+    }
+
+    @OnClick(R.id.start)
+    public void onStartClick(){
         plotAnimator.start();
+    }
+
+    @OnClick(R.id.start)
+    public void onPauseClick(){
+        plotAnimator.pause();
+    }
+
+    @OnClick(R.id.start)
+    public void onStopClick(){
+        plotAnimator.stop();
     }
 }

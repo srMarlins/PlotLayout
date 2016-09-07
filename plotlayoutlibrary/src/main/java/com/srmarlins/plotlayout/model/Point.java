@@ -1,6 +1,7 @@
 package com.srmarlins.plotlayout.model;
 
 import android.graphics.Matrix;
+import android.graphics.Path;
 
 import com.srmarlins.plotlayout.animation.PlotAnimator;
 
@@ -18,6 +19,7 @@ public class Point {
     private float startAngle;
     private float sweepAngle;
     private float radius;
+    private Path.Direction direction;
     private PlotAnimator.PathType pathType;
     private Matrix matrix = new Matrix();
 
@@ -91,5 +93,13 @@ public class Point {
 
     public void setRadius(float radius) {
         this.radius = radius;
+    }
+
+    public Path.Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Path.Direction direction) {
+        this.direction = direction;
     }
 }
