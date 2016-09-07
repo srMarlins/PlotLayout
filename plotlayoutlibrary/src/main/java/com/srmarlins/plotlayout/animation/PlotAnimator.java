@@ -4,8 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.Path;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -13,11 +15,14 @@ import android.view.animation.Interpolator;
 import com.srmarlins.plotlayout.model.ArcPoint;
 import com.srmarlins.plotlayout.model.Point;
 import com.srmarlins.plotlayout.model.PointPath;
+import com.srmarlins.plotlayout.util.ArcUtils;
 import com.srmarlins.plotlayout.widget.PlotLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static java.lang.Math.sqrt;
 
 /**
  * Created by JaredFowler on 8/18/2016.
@@ -108,7 +113,7 @@ public class PlotAnimator {
             Point current = pointPath.getPoints().get(i);
             switch (current.getPathType()) {
                 case ARC:
-                    addArcPath(viewHashMap.get(pathKey), path, pointPath, i);
+                    addArcPath(path, pointPath, i);
                     break;
                 case QUAD:
                     addQuadPath(path, pointPath, i);
@@ -130,10 +135,11 @@ public class PlotAnimator {
         return pathAnimator;
     }
 
-    private void addArcPath(View view, Path path, PointPath pointPath, int index) {
+    private void addArcPath(Path path, PointPath pointPath, int index) {
         if (index >= pointPath.getPoints().size() - 1) {
             return;
         }
+
         Point current = pointPath.getPoints().get(index);
         if(!(current instanceof ArcPoint)) {
             return;
@@ -141,30 +147,29 @@ public class PlotAnimator {
         ArcPoint arc = (ArcPoint) current;
         Point next = pointPath.getPoints().get(index + 1);
 
-        int centerX = plotLayout.coordToPx(arc.getCenterX());
-        int centerY = plotLayout.coordToPx(arc.getCenterY());
+        int x1 = arc.getCenterX() - arc.getxCoordinate();
+        int x2 = next.getxCoordinate() - arc.getxCoordinate();
 
-        float diffX = Math.abs(plotLayout.coordToPx(arc.getxCoordinate()) - centerX);
-        float diffY = Math.abs(plotLayout.coordToPx(arc.getyCoordinate()) - centerY);
+        int y1 = arc.getCenterY() - arc.getyCoordinate();
+        int y2 = next.getyCoordinate() - arc.getyCoordinate();
+
+        PointF centerPoint = new PointF(plotLayout.coordToPx(x1), plotLayout.coordToPx(y1));
+        PointF currentPoint = new PointF(0, 0);
+        PointF endPoint = new PointF(plotLayout.coordToPx(x2), plotLayout.coordToPx(y2));
+
+        float diffX = Math.abs(currentPoint.x - centerPoint.x);
+        float diffY = Math.abs(currentPoint.y - centerPoint.y);
         float radius;
         if(diffX == diffY) {
-            radius = (float) Math.sqrt(diffX * diffX + diffY * diffY);
+            radius = (float) sqrt(diffX * diffX + diffY * diffY);
         } else {
             radius = diffX > diffY ? diffX : diffY;
         }
 
-        float left = centerX - radius - plotLayout.coordToPx(arc.getxCoordinate());
-        float top = centerY - radius - plotLayout.coordToPx(arc.getyCoordinate());
-        float right = centerX + radius - plotLayout.coordToPx(arc.getxCoordinate());
-        float bottom = centerY + radius - plotLayout.coordToPx(arc.getyCoordinate());
-        RectF oval = new RectF(left, top, right, bottom);
-
-        float startAngle = (float) (180 / Math.PI * Math.atan2(arc.getyCoordinate() - next.getyCoordinate(), arc.getxCoordinate() - next.getxCoordinate()));
-        float sweepAngle = (float) (Math.atan2(arc.getyCoordinate(), arc.getxCoordinate()) - Math.atan2(next.getyCoordinate(), next.getxCoordinate()));
-        sweepAngle = (float) Math.toDegrees(sweepAngle);
-        startAngle = (startAngle % 360 + 360) % 360;
-        sweepAngle = (sweepAngle % 360 + 360) % 360;
-        path.arcTo(oval, startAngle , sweepAngle);
+        float startAngle = (float) (Math.atan2(arc.getyCoordinate() - next.getyCoordinate(), arc.getxCoordinate() - next.getxCoordinate()));
+        float sweepAngle = (float) ArcUtils.getRadiansBetweenTwoPoints(centerPoint, currentPoint, endPoint, true);
+        path.moveTo(0,0);
+        ArcUtils.createBezierArcRadians(centerPoint, radius, startAngle, sweepAngle, 2, false, path);
     }
 
     private void addQuadPath(Path path, PointPath pointPath, int index) {
