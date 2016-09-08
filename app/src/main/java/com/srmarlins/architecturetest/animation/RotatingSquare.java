@@ -67,8 +67,9 @@ public class RotatingSquare {
         int xInverse = max - xOffset;
         int yInverse = max - yOffset;
 
-        pointPath.addPoint(PointFactory.getArcPoint(xOffset, yOffset, bounds.centerX(), bounds.centerY(), 1000, Path.Direction.CW, RADIUS_PADDING));
-        pointPath.addPoint(PointFactory.getArcPoint(xInverse, yInverse, bounds.centerX(), bounds.centerY(), 1000, Path.Direction.CW, RADIUS_PADDING));
+        pointPath.addPoint(PointFactory.getArcPoint(xOffset, yOffset, bounds.centerX(), bounds.centerY(), 400, Path.Direction.CCW, RADIUS_PADDING));
+        pointPath.addPoint(PointFactory.getLinePoint(xInverse, yInverse, 200));
+        pointPath.addPoint(PointFactory.getPlacePoint(bounds.centerX(), bounds.centerY()));
         return pointPath;
     }
 }

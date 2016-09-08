@@ -7,7 +7,7 @@
 
     <com.srmarlins.plotlayout.widget.PlotLayout
         android:id="@+id/graphView"
-        android:layout_marginLeft="30dp"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

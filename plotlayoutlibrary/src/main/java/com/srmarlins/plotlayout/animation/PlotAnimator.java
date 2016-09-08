@@ -3,11 +3,10 @@ package com.srmarlins.plotlayout.animation;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.graphics.RectF;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -80,9 +79,7 @@ public class PlotAnimator {
         init();
         List<Animator> animators = buildAnimationSet();
         for (int i = 0; i < animators.size(); i++) {
-                animators.get(i).start();
-
-
+            animators.get(i).start();
         }
     }
 
@@ -109,27 +106,31 @@ public class PlotAnimator {
         ObjectAnimator pathAnimator;
         Path path = new Path();
         int duration = 0;
-        for (int i = 0; i < pointPath.getPoints().size() - 1; i++) {
+        for (int i = 0; i < pointPath.getPoints().size(); i++) {
             Point current = pointPath.getPoints().get(i);
-            switch (current.getPathType()) {
-                case ARC:
-                    addArcPath(path, pointPath, i);
-                    break;
-                case QUAD:
-                    addQuadPath(path, pointPath, i);
-                    break;
-                case CUBIC:
-                    addCubicPath(path, pointPath, i);
-                    break;
-                case CIRCLE:
-                    addCirclePath(path, pointPath, i);
-                    break;
-                default:
-                    addLinePath(path, pointPath, i);
+            if (current.getPathType() != null) {
+                switch (current.getPathType()) {
+                    case ARC:
+                        addArcPath(path, pointPath, i);
+                        break;
+                    case QUAD:
+                        addQuadPath(path, pointPath, i);
+                        break;
+                    case CUBIC:
+                        addCubicPath(path, pointPath, i);
+                        break;
+                    case CIRCLE:
+                        addCirclePath(path, pointPath, i);
+                        break;
+                    default:
+                        addLinePath(path, pointPath, i);
+                }
+                duration += current.getAnimationDuration();
             }
-            duration += current.getAnimationDuration();
         }
         pathAnimator = ObjectAnimator.ofFloat(viewHashMap.get(pathKey), "translationX", "translationY", path);
+        pathAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        pathAnimator.setRepeatMode(ValueAnimator.REVERSE);
         pathAnimator.setDuration(duration);
         pathAnimator.setInterpolator(interpolator);
         return pathAnimator;
@@ -141,7 +142,7 @@ public class PlotAnimator {
         }
 
         Point current = pointPath.getPoints().get(index);
-        if(!(current instanceof ArcPoint)) {
+        if (!(current instanceof ArcPoint)) {
             return;
         }
         ArcPoint arc = (ArcPoint) current;
@@ -160,7 +161,7 @@ public class PlotAnimator {
         float diffX = Math.abs(currentPoint.x - centerPoint.x);
         float diffY = Math.abs(currentPoint.y - centerPoint.y);
         float radius;
-        if(diffX == diffY) {
+        if (diffX == diffY) {
             radius = (float) sqrt(diffX * diffX + diffY * diffY);
         } else {
             radius = diffX > diffY ? diffX : diffY;
@@ -168,7 +169,7 @@ public class PlotAnimator {
 
         float startAngle = (float) (Math.atan2(arc.getyCoordinate() - next.getyCoordinate(), arc.getxCoordinate() - next.getxCoordinate()));
         float sweepAngle = (float) ArcUtils.getRadiansBetweenTwoPoints(centerPoint, currentPoint, endPoint, true);
-        path.moveTo(0,0);
+        path.moveTo(0, 0);
         ArcUtils.createBezierArcRadians(centerPoint, radius, startAngle, sweepAngle, 2, false, path);
     }
 
@@ -185,9 +186,15 @@ public class PlotAnimator {
     }
 
     private void addLinePath(Path path, PointPath pointPath, int index) {
+        if (index >= pointPath.getPoints().size() - 1) {
+            return;
+        }
+        Point current = pointPath.getPoints().get(index);
         Point next = pointPath.getPoints().get(index + 1);
-        path.lineTo(plotLayout.coordToPx(next.getxCoordinate()),
-                plotLayout.coordToPx(next.getyCoordinate()));
+
+        int adjustedX = plotLayout.coordToPx(next.getxCoordinate() - current.getxCoordinate());
+        int adjustedY = plotLayout.coordToPx(next.getyCoordinate() - current.getyCoordinate());
+        path.rLineTo(adjustedX, adjustedY);
     }
 
     private void addCubicPath(Path path, PointPath pointPath, int index) {
@@ -219,7 +226,7 @@ public class PlotAnimator {
 
         path.cubicTo(cX1, cY1, cX2, cY2, pX2, pY2);
     }
-    
+
     public void addCirclePath(Path path, PointPath pointPath, int index) {
         if (index >= pointPath.getPoints().size() - 1) {
             return;
@@ -230,7 +237,7 @@ public class PlotAnimator {
         Rect rect = getBounds(current, next);
         path.addCircle(rect.centerX(), rect.centerY(), current.getRadius(), Path.Direction.CW);
     }
-    
+
     private Rect getBounds(Point p1, Point p2) {
         int top = plotLayout.coordToPx(p1.getxCoordinate() > p2.getxCoordinate() ? p2.getxCoordinate() : p1.getxCoordinate());
         int left = plotLayout.coordToPx(p1.getyCoordinate() > p2.getyCoordinate() ? p2.getyCoordinate() : p1.getyCoordinate());

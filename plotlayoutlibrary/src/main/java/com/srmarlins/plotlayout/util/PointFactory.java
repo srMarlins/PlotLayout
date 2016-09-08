@@ -26,6 +26,13 @@ public class PointFactory {
         return point;
     }
 
+    public static Point getPlacePoint(int x, int y) {
+        Point point = new Point();
+        point.setxCoordinate(x);
+        point.setyCoordinate(y);
+        return point;
+    }
+
     public static Point getLinePoint(int x, int y, int animationDuration) {
         Point point = new Point();
         point.setPathType(PlotAnimator.PathType.LINE);
