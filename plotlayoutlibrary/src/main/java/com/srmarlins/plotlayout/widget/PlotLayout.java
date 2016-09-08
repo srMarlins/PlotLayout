@@ -58,10 +58,10 @@ public class PlotLayout extends ViewGroup {
                     throw new IllegalArgumentException("Y value of " + layoutParams.y + " is greater than the y row size of " + yRowSize);
                 }
 
-                tempContainer.left = (int) (layoutParams.x * distance + layoutParams.leftMargin - paddingStart);
-                tempContainer.right = (int) (layoutParams.x * distance + childWidth - layoutParams.rightMargin - paddingEnd);
-                tempContainer.top = (int) (layoutParams.y * distance + layoutParams.topMargin - paddingTop);
-                tempContainer.bottom = (int) (layoutParams.y * distance + childHeight - layoutParams.bottomMargin - paddingBottom);
+                tempContainer.left = (int) (layoutParams.x * distance + layoutParams.leftMargin + paddingStart - paddingEnd);
+                tempContainer.right = (int) (layoutParams.x * distance + childWidth - layoutParams.rightMargin - paddingEnd + paddingStart);
+                tempContainer.top = (int) (layoutParams.y * distance + layoutParams.topMargin + paddingTop - paddingBottom);
+                tempContainer.bottom = (int) (layoutParams.y * distance + childHeight - layoutParams.bottomMargin - paddingBottom + paddingTop);
 
                 child.layout(tempContainer.left, tempContainer.top, tempContainer.right, tempContainer.bottom);
             }
@@ -89,8 +89,8 @@ public class PlotLayout extends ViewGroup {
             }
         }
 
-        maxWidth = Math.max(maxWidth, getSuggestedMinimumWidth());
-        maxHeight = Math.max(maxHeight, getSuggestedMinimumHeight());
+        maxWidth = Math.max(maxWidth + getPaddingEnd() + getPaddingStart(), getSuggestedMinimumWidth());
+        maxHeight = Math.max(maxHeight + getPaddingTop() + getPaddingBottom(), getSuggestedMinimumHeight());
 
         setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, childState), resolveSizeAndState(maxHeight, heightMeasureSpec, childState << MEASURED_HEIGHT_STATE_SHIFT));
         calculateGridSize(MeasureSpec.getSize(getMeasuredWidth()), MeasureSpec.getSize(getMeasuredHeight()));
@@ -116,10 +116,6 @@ public class PlotLayout extends ViewGroup {
         return p instanceof LayoutParams;
     }
 
-    private void placePoint(Point point) {
-        point.getMatrix().preTranslate((float) (point.getxCoordinate() * distance), (float) (point.getyCoordinate() * distance));
-    }
-
     private void calculateGridSize(int viewWidth, int viewHeight) {
         distance = (viewWidth > viewHeight ? viewWidth : viewHeight) / getMaxRows();
         xRowSize = (int) (viewWidth / distance);
@@ -140,6 +136,14 @@ public class PlotLayout extends ViewGroup {
 
     public int coordToPx(int coord) {
         return (int) (coord * distance);
+    }
+
+    public int getCenterX() {
+        return sizeOfX() / 2;
+    }
+
+    public int getCenterY() {
+        return sizeOfY() / 2;
     }
 
     public static class LayoutParams extends MarginLayoutParams {
