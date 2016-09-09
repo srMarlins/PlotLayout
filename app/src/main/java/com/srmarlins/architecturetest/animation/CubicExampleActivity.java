@@ -61,7 +61,8 @@ public class CubicExampleActivity extends BaseActivity {
         plotAnimator = new PlotAnimator(plotLayout);
         List<View> viewMap = new ArrayList<>();
         List<String> pathList = new ArrayList<>();
-        for(int i = 0; i < SIDE * SIDE; i++) {
+        int sideSq = SIDE * SIDE;
+        for(int i = 0; i < sideSq; i++) {
             ImageView imageView = new ImageView(this);
             plotLayout.addView(imageView);
             PlotLayout.LayoutParams layoutParams = (PlotLayout.LayoutParams) imageView.getLayoutParams();
@@ -69,7 +70,7 @@ public class CubicExampleActivity extends BaseActivity {
             layoutParams.width = 30;
             layoutParams.height = 30;
             Drawable drawable = ContextCompat.getDrawable(this, R.drawable.circle);
-            if(i % 2 == 0) {
+            if(sideSq / 2 == i) {
                 drawable.setColorFilter(Color.MAGENTA, PorterDuff.Mode.ADD);
             }
             imageView.setImageDrawable(drawable);
@@ -79,7 +80,7 @@ public class CubicExampleActivity extends BaseActivity {
         RotatingSquare rotatingSquare = new RotatingSquare();
         rotatingSquare.arrangeViews(viewMap, SIDE, 10);
         GraphAnimation graphAnimation = new GraphAnimation();
-        graphAnimation.setMap(rotatingSquare.getPaths(pathList, SIDE, 10, true));
+        graphAnimation.addPaths(rotatingSquare.getPaths(pathList, SIDE, 10, true));
         plotAnimator.setAnimation(graphAnimation);
     }
 
@@ -88,12 +89,12 @@ public class CubicExampleActivity extends BaseActivity {
         plotAnimator.start();
     }
 
-    @OnClick(R.id.start)
+    @OnClick(R.id.pause)
     public void onPauseClick(){
         plotAnimator.pause();
     }
 
-    @OnClick(R.id.start)
+    @OnClick(R.id.stop)
     public void onStopClick(){
         plotAnimator.stop();
     }
