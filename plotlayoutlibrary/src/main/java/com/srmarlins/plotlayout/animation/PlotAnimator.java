@@ -179,12 +179,7 @@ public class PlotAnimator {
 
         float diffX = Math.abs(currentPoint.x - centerPoint.x);
         float diffY = Math.abs(currentPoint.y - centerPoint.y);
-        float radius;
-        if (diffX == diffY) {
-            radius = (float) sqrt(diffX * diffX + diffY * diffY);
-        } else {
-            radius = diffX > diffY ? diffX : diffY;
-        }
+        float radius = (float) sqrt(diffX * diffX + diffY * diffY);
 
         float startAngle = (float) (Math.atan2(arc.getyCoordinate() - next.getyCoordinate(), arc.getxCoordinate() - next.getxCoordinate()));
         float sweepAngle = (float) ArcUtils.getRadiansBetweenTwoPoints(centerPoint, currentPoint, endPoint, true);
