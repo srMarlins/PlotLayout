@@ -11,6 +11,7 @@ import com.srmarlins.plotlayout.util.AnimationUtil;
 import com.srmarlins.plotlayout.util.PointFactory;
 import com.srmarlins.plotlayout.widget.PlotLayout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,15 +49,15 @@ public class RotatingSquare {
         bounds.set(left, top, right, bottom);
     }
 
-    public HashMap<String, PointPath> getPaths(@NonNull List<String> pathTags, int sideLength, int pointDistance, boolean clockwise) {
-        HashMap<String, PointPath> pointPaths = new HashMap<>();
+    public List<PointPath> getPaths(@NonNull List<String> pathTags, int sideLength, int pointDistance, boolean clockwise) {
+        List<PointPath> pointPaths = new ArrayList<>();
         int pathCount = 0;
         for (int i = 0; i < sideLength; i++) {
             for (int j = 0; j < sideLength; j++) {
                 String tag = pathTags.get(pathCount++);
                 PointPath pathToAdd = getPath(j * pointDistance, i * pointDistance, pointDistance * (sideLength - 1));
                 pathToAdd.setPathTag(tag);
-                pointPaths.put(tag, pathToAdd);
+                pointPaths.add(pathToAdd);
             }
         }
         return pointPaths;
@@ -67,8 +68,9 @@ public class RotatingSquare {
         int xInverse = max - xOffset;
         int yInverse = max - yOffset;
 
-        pointPath.addPoint(PointFactory.getArcPoint(xOffset, yOffset, bounds.centerX(), bounds.centerY(), 1000, Path.Direction.CW, RADIUS_PADDING));
-        pointPath.addPoint(PointFactory.getArcPoint(xInverse, yInverse, bounds.centerX(), bounds.centerY(), 1000, Path.Direction.CW, RADIUS_PADDING));
+        pointPath.addPoint(PointFactory.getArcPoint(xOffset, yOffset, bounds.centerX(), bounds.centerY(), 400, Path.Direction.CCW, RADIUS_PADDING));
+        pointPath.addPoint(PointFactory.getLinePoint(xInverse, yInverse, 200));
+        pointPath.addPoint(PointFactory.getPlacePoint(bounds.centerX(), bounds.centerY()));
         return pointPath;
     }
 }

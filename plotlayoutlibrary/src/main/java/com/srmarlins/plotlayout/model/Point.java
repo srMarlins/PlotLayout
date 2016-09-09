@@ -19,6 +19,7 @@ public class Point {
     private float startAngle;
     private float sweepAngle;
     private float radius;
+    private float alpha;
     private Path.Direction direction;
     private PlotAnimator.PathType pathType;
     private Matrix matrix = new Matrix();
@@ -101,5 +102,13 @@ public class Point {
 
     public void setDirection(Path.Direction direction) {
         this.direction = direction;
+    }
+
+    public float getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
     }
 }
