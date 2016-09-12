@@ -141,18 +141,28 @@ public class PlotAnimator {
                     case CIRCLE:
                         addCirclePath(path, pointPath, i);
                         break;
-                    default:
+                    case LINE:
                         addLinePath(path, pointPath, i);
+                        break;
+
                 }
                 duration += current.getAnimationDuration();
             }
         }
-        pathAnimator = ObjectAnimator.ofFloat(viewHashMap.get(pointPath.getPathTag()), "translationX", "translationY", path);
+        pathAnimator = getTranslationAnimator(viewHashMap.get(pointPath.getPathTag()), path);
         pathAnimator.setRepeatCount(ValueAnimator.INFINITE);
         pathAnimator.setRepeatMode(ValueAnimator.REVERSE);
         pathAnimator.setDuration(duration);
         pathAnimator.setInterpolator(interpolator == null ? new AccelerateDecelerateInterpolator() : interpolator);
         return pathAnimator;
+    }
+
+    private ObjectAnimator getTranslationAnimator(View view, Path path) {
+        return ObjectAnimator.ofFloat(view, View.TRANSLATION_X, View.TRANSLATION_Y, path);
+    }
+
+    private ObjectAnimator getAlphaAnimator(View view, float startAlpha, float endAlpha) {
+        return ObjectAnimator.ofFloat(view, View.ALPHA, startAlpha, endAlpha);
     }
 
     private void addArcPath(Path path, PointPath pointPath, int index) {
