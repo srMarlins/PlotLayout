@@ -9,6 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.srmarlins.architecturetest.R;
 import com.srmarlins.architecturetest.feed.data.api.model.Photo;
 
@@ -37,7 +39,7 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         photo = getIntent().getParcelableExtra(PHOTO_ARG);
-        if(displayFull(photo)) {
+        if (displayFull(photo)) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
@@ -54,11 +56,11 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
     public void displayPhoto(Photo photo) {
-       /* if (displayFull(photo)) {
-            Picasso.with(this).load(photo.urls.full).fit().placeholder(R.drawable.animation_spinner).into(feedImage);
+        if (displayFull(photo)) {
+            Picasso.with(this).load(photo.urls.full).fit().into(feedImage);
         } else {
-            Picasso.with(this).load(photo.urls.regular).placeholder(R.drawable.animation_spinner).into(feedImage);
-        }*/
+            Picasso.with(this).load(photo.urls.regular).into(feedImage);
+        }
     }
 
     public boolean displayFull(Photo photo) {
