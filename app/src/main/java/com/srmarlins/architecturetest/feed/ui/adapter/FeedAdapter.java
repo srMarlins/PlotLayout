@@ -82,6 +82,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         this.data.addAll(data);
     }
 
+    public void clearData() {
+        this.data.clear();
+    }
+
     public class FeedViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.feedImage)
         ImageView feedImage;

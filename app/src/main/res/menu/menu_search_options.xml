@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="always"
+        android:title="Search Options">
+        <menu>
+            <item
+                android:id="@+id/menuSortPopular"
+                android:title="Popular" />
+            <item
+                android:id="@+id/menuSortLatest"
+                android:title="Latest" />
+            <item
+                android:id="@+id/menuSortOldest"
+                android:title="Oldest" />
+
+        </menu>
+    </item>
+</menu>

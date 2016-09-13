@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.srmarlins.architecturetest.ArchitectureApp;
 import com.srmarlins.architecturetest.R;
 import com.srmarlins.architecturetest.feed.data.PhotoManager;
+import com.srmarlins.architecturetest.feed.data.api.PhotoService;
 import com.srmarlins.architecturetest.feed.data.api.model.Photo;
 import com.srmarlins.architecturetest.feed.ui.adapter.FeedAdapter;
 
@@ -36,10 +39,11 @@ public class FeedActivity extends BaseActivity {
     RecyclerView feed;
 
     private FeedAdapter feedAdapter;
-    private LinearLayoutManager layoutManager;
     private Subscriber<List<Photo>> photosResponseSubscriber;
     private Subscription previousCall;
     private Observable<View> photoObservable;
+    @PhotoService.OrderOptions
+    private String orderOptions = PhotoService.POPULAR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +73,32 @@ public class FeedActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search_options, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuSortPopular:
+                orderOptions = PhotoService.POPULAR;
+                break;
+            case R.id.menuSortLatest:
+                orderOptions = PhotoService.LATEST;
+                break;
+            case R.id.menuSortOldest:
+                orderOptions = PhotoService.OLDEST;
+                break;
+        }
+        feedAdapter.clearData();
+        photoManager.getPhotos(photosResponseSubscriber, 1, orderOptions);
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initFeed() {
-        layoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         feed.setLayoutManager(layoutManager);
         feedAdapter = new FeedAdapter();
         feed.setAdapter(feedAdapter);
@@ -103,10 +131,10 @@ public class FeedActivity extends BaseActivity {
                 if (previousCall != null) {
                     previousCall.unsubscribe();
                 }
-                previousCall = photoManager.getPhotos(photosResponseSubscriber, pageNumber, null);
+                previousCall = photoManager.getPhotos(photosResponseSubscriber, pageNumber, orderOptions);
             }
         });
 
-        photoManager.getPhotos(photosResponseSubscriber, 1, null);
+        photoManager.getPhotos(photosResponseSubscriber, 1, orderOptions);
     }
 }

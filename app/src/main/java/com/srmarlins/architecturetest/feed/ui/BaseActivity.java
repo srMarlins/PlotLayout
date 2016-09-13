@@ -1,5 +1,6 @@
 package com.srmarlins.architecturetest.feed.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
@@ -21,12 +22,12 @@ public class BaseActivity extends AppCompatActivity {
 
     @BindView(R.id.content_container)
     FrameLayout container;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = ButterKnife.findById(this, R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -36,6 +37,8 @@ public class BaseActivity extends AppCompatActivity {
         View view = LayoutInflater.from(this).inflate(layoutResId, null);
         container.addView(view);
         ButterKnife.bind(this);
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
     }
 
     public void setView(View view){
