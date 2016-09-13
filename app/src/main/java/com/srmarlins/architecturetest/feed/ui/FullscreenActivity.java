@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import com.srmarlins.architecturetest.feed.data.api.model.Photo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JaredFowler on 8/16/2016.
@@ -24,6 +28,9 @@ import butterknife.ButterKnife;
 public class FullscreenActivity extends AppCompatActivity {
 
     public static final String PHOTO_ARG = "photo";
+
+    @BindView(R.id.fabSave)
+    FloatingActionButton saveButton;
 
     @BindView(R.id.feedImage)
     ImageView feedImage;
@@ -47,6 +54,17 @@ public class FullscreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_full);
         ButterKnife.bind(this);
         init();
+    }
+
+    @OnClick(R.id.feedImage)
+    public void onImageClick() {
+        saveButton.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                saveButton.setVisibility(View.GONE);
+            }
+        }, 2000);
     }
 
     private void init() {
